@@ -1,0 +1,25 @@
+name: flutter_tr_formatters
+description: Input formatters and validators for Turkish data in Flutter — phone numbers, TR IBAN, T.C. Kimlik No, Vergi No and vehicle plates.
+version: 1.0.0
+homepage: https://github.com/CeyDrew/flutter_tr_formatters
+repository: https://github.com/CeyDrew/flutter_tr_formatters
+issue_tracker: https://github.com/CeyDrew/flutter_tr_formatters/issues
+topics:
+  - formatter
+  - validation
+  - turkey
+  - iban
+  - forms
+
+environment:
+  sdk: ^3.5.0
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
