@@ -26,13 +26,16 @@ class _ExampleFormState extends State<ExampleForm> {
           padding: const EdgeInsets.all(16),
           children: [
             TextFormField(
-              decoration: const InputDecoration(labelText: 'Cep telefonu', hintText: '0543 413 54 61'),
+              decoration: const InputDecoration(
+                  labelText: 'Cep telefonu', hintText: '0543 413 54 61'),
               keyboardType: TextInputType.phone,
               inputFormatters: const [TrPhoneFormatter()],
               validator: TrValidators.phone(mobileOnly: true),
             ),
             TextFormField(
-              decoration: const InputDecoration(labelText: 'IBAN', hintText: 'TR00 0000 0000 0000 0000 0000 00'),
+              decoration: const InputDecoration(
+                  labelText: 'IBAN',
+                  hintText: 'TR00 0000 0000 0000 0000 0000 00'),
               textCapitalization: TextCapitalization.characters,
               inputFormatters: const [TrIbanFormatter()],
               validator: TrValidators.iban(),
@@ -50,7 +53,8 @@ class _ExampleFormState extends State<ExampleForm> {
               validator: TrValidators.vkn(),
             ),
             TextFormField(
-              decoration: const InputDecoration(labelText: 'Plaka', hintText: '34 ABC 123'),
+              decoration: const InputDecoration(
+                  labelText: 'Plaka', hintText: '34 ABC 123'),
               textCapitalization: TextCapitalization.characters,
               inputFormatters: const [TrPlateFormatter()],
               validator: TrValidators.plate(),
@@ -59,7 +63,8 @@ class _ExampleFormState extends State<ExampleForm> {
             FilledButton(
               onPressed: () {
                 final ok = _form.currentState!.validate();
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(ok ? 'Form geçerli' : 'Hataları düzeltin')));
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(ok ? 'Form geçerli' : 'Hataları düzeltin')));
               },
               child: const Text('Kontrol et'),
             ),

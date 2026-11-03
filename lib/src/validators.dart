@@ -84,10 +84,12 @@ abstract final class TrValidators {
   }
 
   /// Valid number in E.164 form (`+905434135461`), or `null`.
-  static String? toE164(String? value) => isPhone(value) ? '+90${nationalPhone(value)}' : null;
+  static String? toE164(String? value) =>
+      isPhone(value) ? '+90${nationalPhone(value)}' : null;
 
   /// Removes whitespace and uppercases an IBAN.
-  static String compactIban(String value) => value.replaceAll(RegExp(r'\s+'), '').toUpperCase();
+  static String compactIban(String value) =>
+      value.replaceAll(RegExp(r'\s+'), '').toUpperCase();
 
   /// `"34abc123"` → `"34 ABC 123"`, or `null` if the shape does not match.
   static String? normalizePlate(String? value) {
@@ -98,25 +100,39 @@ abstract final class TrValidators {
   }
 
   /// `TextFormField` validator for T.C. Kimlik No.
-  static String? Function(String?) tckn({String message = 'Geçerli bir T.C. kimlik numarası girin'}) =>
+  static String? Function(String?) tckn(
+          {String message = 'Geçerli bir T.C. kimlik numarası girin'}) =>
       _field(isTckn, message);
 
   /// `TextFormField` validator for Vergi Kimlik No.
-  static String? Function(String?) vkn({String message = 'Geçerli bir vergi kimlik numarası girin'}) =>
+  static String? Function(String?) vkn(
+          {String message = 'Geçerli bir vergi kimlik numarası girin'}) =>
       _field(isVkn, message);
 
   /// `TextFormField` validator for TR IBAN.
-  static String? Function(String?) iban({String message = 'Geçerli bir IBAN girin'}) => _field(isIban, message);
+  static String? Function(String?) iban(
+          {String message = 'Geçerli bir IBAN girin'}) =>
+      _field(isIban, message);
 
   /// `TextFormField` validator for phone numbers; set [mobileOnly] to accept only 5xx numbers.
-  static String? Function(String?) phone({bool mobileOnly = false, String? message}) => _field(
+  static String? Function(String?) phone(
+          {bool mobileOnly = false, String? message}) =>
+      _field(
         (v) => isPhone(v, mobileOnly: mobileOnly),
-        message ?? (mobileOnly ? 'Geçerli bir cep telefonu numarası girin' : 'Geçerli bir telefon numarası girin'),
+        message ??
+            (mobileOnly
+                ? 'Geçerli bir cep telefonu numarası girin'
+                : 'Geçerli bir telefon numarası girin'),
       );
 
   /// `TextFormField` validator for vehicle plates.
-  static String? Function(String?) plate({String message = 'Geçerli bir plaka girin'}) => _field(isPlate, message);
+  static String? Function(String?) plate(
+          {String message = 'Geçerli bir plaka girin'}) =>
+      _field(isPlate, message);
 
-  static String? Function(String?) _field(bool Function(String?) check, String message) =>
-      (value) => (value == null || value.trim().isEmpty || check(value)) ? null : message;
+  static String? Function(String?) _field(
+          bool Function(String?) check, String message) =>
+      (value) => (value == null || value.trim().isEmpty || check(value))
+          ? null
+          : message;
 }

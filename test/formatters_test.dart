@@ -3,10 +3,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_tr_formatters/flutter_tr_formatters.dart';
 
 /// Applies [formatter] as if [text] was typed or pasted with the cursor at [cursor] (default: end).
-TextEditingValue apply(TextInputFormatter formatter, String text, {int? cursor, String old = ''}) =>
+TextEditingValue apply(TextInputFormatter formatter, String text,
+        {int? cursor, String old = ''}) =>
     formatter.formatEditUpdate(
       TextEditingValue(text: old),
-      TextEditingValue(text: text, selection: TextSelection.collapsed(offset: cursor ?? text.length)),
+      TextEditingValue(
+          text: text,
+          selection: TextSelection.collapsed(offset: cursor ?? text.length)),
     );
 
 /// Types [input] one character at a time.
@@ -14,7 +17,10 @@ String type(TextInputFormatter formatter, String input) {
   var value = TextEditingValue.empty;
   for (final c in input.split('')) {
     final t = value.text + c;
-    value = formatter.formatEditUpdate(value, TextEditingValue(text: t, selection: TextSelection.collapsed(offset: t.length)));
+    value = formatter.formatEditUpdate(
+        value,
+        TextEditingValue(
+            text: t, selection: TextSelection.collapsed(offset: t.length)));
   }
   return value.text;
 }
@@ -55,15 +61,18 @@ void main() {
     const f = TrIbanFormatter();
 
     test('typing and grouping', () {
-      expect(type(f, 'tr330006100519786457841326'), 'TR33 0006 1005 1978 6457 8413 26');
+      expect(type(f, 'tr330006100519786457841326'),
+          'TR33 0006 1005 1978 6457 8413 26');
     });
 
     test('adds TR when starting with digits and stops at 26 characters', () {
-      expect(type(f, '330006100519786457841326999'), 'TR33 0006 1005 1978 6457 8413 26');
+      expect(type(f, '330006100519786457841326999'),
+          'TR33 0006 1005 1978 6457 8413 26');
     });
 
     test('pasting with spaces and dashes', () {
-      expect(apply(f, 'TR33-0006-1005-1978-6457-8413-26').text, 'TR33 0006 1005 1978 6457 8413 26');
+      expect(apply(f, 'TR33-0006-1005-1978-6457-8413-26').text,
+          'TR33 0006 1005 1978 6457 8413 26');
     });
 
     test('result validates', () {

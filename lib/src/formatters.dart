@@ -52,7 +52,8 @@ class TcknFormatter extends _GroupingFormatter {
 
   @override
   String clean(String input) {
-    final d = input.replaceAll(RegExp(r'\D'), '').replaceFirst(RegExp(r'^0+'), '');
+    final d =
+        input.replaceAll(RegExp(r'\D'), '').replaceFirst(RegExp(r'^0+'), '');
     return d.length > 11 ? d.substring(0, 11) : d;
   }
 
@@ -86,7 +87,8 @@ class TrPlateFormatter extends TextInputFormatter {
   static final _letter = RegExp('[ABCDEFGHIJKLMNOPRSTUVYZ]');
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     final raw = newValue.text.toUpperCase();
     final province = StringBuffer();
     final letters = StringBuffer();
@@ -103,10 +105,16 @@ class TrPlateFormatter extends TextInputFormatter {
       }
     }
 
-    final parts = [province, letters, number].map((b) => b.toString()).where((s) => s.isNotEmpty);
+    final parts = [province, letters, number]
+        .map((b) => b.toString())
+        .where((s) => s.isNotEmpty);
     final text = parts.join(' ');
-    final significantBefore = _significant(raw.substring(0, newValue.selection.end.clamp(0, raw.length)));
-    return TextEditingValue(text: text, selection: TextSelection.collapsed(offset: _offsetFor(text, significantBefore)));
+    final significantBefore = _significant(
+        raw.substring(0, newValue.selection.end.clamp(0, raw.length)));
+    return TextEditingValue(
+        text: text,
+        selection: TextSelection.collapsed(
+            offset: _offsetFor(text, significantBefore)));
   }
 }
 
@@ -119,7 +127,8 @@ abstract class _GroupingFormatter extends TextInputFormatter {
   List<int> get groups;
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     final cleaned = clean(newValue.text);
     final text = _group(cleaned, groups);
 
@@ -127,7 +136,10 @@ abstract class _GroupingFormatter extends TextInputFormatter {
     final before = clean(newValue.text.substring(0, cursor)).length;
     final significantBefore = before > cleaned.length ? cleaned.length : before;
 
-    return TextEditingValue(text: text, selection: TextSelection.collapsed(offset: _offsetFor(text, significantBefore)));
+    return TextEditingValue(
+        text: text,
+        selection: TextSelection.collapsed(
+            offset: _offsetFor(text, significantBefore)));
   }
 
   static String _group(String s, List<int> groups) {
